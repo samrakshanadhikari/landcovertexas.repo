@@ -1,46 +1,70 @@
 Land Cover Classification in Texas 🌎🛰️
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/samrakshanadhikari/landcovertexas.repo/blob/main/landcover_texas.ipynb)
+Land Cover Classification in Texas 🌎🛰️
+This project uses a Convolutional Neural Network (CNN) to classify land cover types across Texas from satellite imagery.
 
-This project aims to classify different land cover types across Texas using satellite imagery and  Fully Convolutional Neural Network (FCNN). Land cover classification identifies the type of surface in each pixel of satellite images, such as water, grass, trees, urban areas, bare ground, etc.
+Project Overview
+Goal:
+Classify each pixel in satellite images of Texas into land cover types such as water, grass, trees, bare ground, built-up areas, etc.
 
-Land cover data is important for many applications such as climate modeling, agriculture, conservation, urban planning, and disaster management.
+Applications:
+Useful for climate modeling, agriculture, conservation, urban planning, water management, and more.
 
-Overview
-Data source: Sentinel-2 or Landsat satellite images over Texas region.
+Data
+Satellite Imagery Source:
+Sentinel-2 or Landsat images over Texas region.
 
-Labels: Land cover classes from datasets like ESA WorldCover or similar.
+Labels:
+Land cover classes from datasets like ESA WorldCover.
 
-Input: Image patches (e.g., 128x128 pixels) with multiple spectral bands (e.g., RGB + Near Infrared).
+Input Data Format:
 
-Output: Pixel-wise land cover class predictions (semantic segmentation).
+Image patches, e.g., 128×128 pixels.
 
-Model: A CNN-based semantic segmentation network.
+Multiple bands (e.g., Red, Green, Blue, Near Infrared).
 
-Goal: Train the model to predict land cover type for each pixel.
+Label Data Format:
+
+Pixel-wise class labels matching image patch size.
 
 Workflow
 1. Data Preparation
-Collect satellite imagery: Use Google Earth Engine (GEE) or other sources to download Sentinel-2 or Landsat images over Texas.
 
-Generate labeled patches: Extract image patches (e.g., 128x128 pixels) along with corresponding land cover labels for supervised training.
+Extract satellite image patches with corresponding labeled masks.
 
-Preprocess data: Normalize pixel values, convert labels to categorical classes.
+Normalize image data.
+
+Convert labels into integer class IDs per pixel.
 
 2. Model Architecture
-Use a simple CNN or U-Net architecture to perform pixel-wise classification.
 
-Input: 128x128x4 image patch (R, G, B, NIR bands).
+Use a CNN-based semantic segmentation model (e.g., U-Net).
 
-Output: 128x128xN where N = number of land cover classes.
+Input shape: (128, 128, 4) (4 bands).
 
-3. Training
-Use cross-entropy loss for multi-class pixel classification.
+Output shape: (128, 128, NUM_CLASSES) with per-pixel class probabilities.
 
-Use TensorFlow/Keras for model building and training.
+3. Training Setup
 
-Monitor validation accuracy and loss.
+Loss: sparse_categorical_crossentropy (for pixel-wise classification).
+
+Optimizer: Adam.
+
+Metrics: Pixel accuracy, Intersection over Union (IoU).
+
+Batch size: Example 16 patches per batch.
+
+Number of epochs: 10 or more depending on performance.
 
 4. Evaluation
-Evaluate pixel-level accuracy and other metrics such as IoU (Intersection over Union).
 
-Visualize prediction maps on test regions.
+Evaluate on test set for accuracy and IoU.
+
+Visualize predicted land cover maps.
+
+5. Saving Model
+
+Save trained model for inference later.
+
+
+
